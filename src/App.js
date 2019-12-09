@@ -8,15 +8,20 @@ function App() {
   const [homeScore, updateHomeScore] = useState(0);
   const [awayScore, updateAwayScore] = useState(0);
   const [ellapsed, updateEllapsed] = useState(0);
-  
+  const [ellapsedDisplay, updateEllapsedDisplay] = useState(
+    new Date(ellapsed * 1000).toISOString().substr(14, 5)
+  );
+
   useEffect(() => {
     const timer = setInterval(() => {
       updateEllapsed(ellapsed + 1);
+      updateEllapsedDisplay(
+        new Date(ellapsed * 1000).toISOString().substr(14, 5)
+      );
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [ellapsed]);
-
+  }, [ellapsed, ellapsedDisplay]);
 
   const updateScore = (team, amount) => {
     switch (team) {
@@ -26,6 +31,8 @@ function App() {
       case "away":
         updateAwayScore(awayScore + amount);
         break;
+      default:
+        break;
     }
   };
 
@@ -34,7 +41,7 @@ function App() {
       <section className="scoreboard">
         <div className="topRow">
           <Team team="home" name="Lions" score={homeScore}></Team>
-          <div className="timer">{ellapsed}</div>
+          <div className="timer">{ellapsedDisplay}</div>
           <Team team="away" name="Tigers" score={awayScore}></Team>
         </div>
         <BottomRow />
