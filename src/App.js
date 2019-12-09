@@ -9,6 +9,17 @@ function App() {
   const [homeScore, updateHomeScore] = useState(0);
   const [awayScore, updateAwayScore] = useState(0);
 
+  const updateScore = (team, amount) => {
+    switch (team) {
+      case "home":
+        updateHomeScore(homeScore + amount);
+        break;
+      case "away":
+        updateAwayScore(awayScore + amount);
+        break;
+    }
+  };
+
   return (
     <div className="container">
       <section className="scoreboard">
@@ -23,13 +34,13 @@ function App() {
         <div className="homeButtons">
           <button
             className="homeButtons__touchdown"
-            onClick={() => updateHomeScore(homeScore + 7)}
+            onClick={() => updateScore("home", 7)}
           >
             Home Touchdown
           </button>
           <button
             className="homeButtons__fieldGoal"
-            onClick={() => updateHomeScore(homeScore + 3)}
+            onClick={() => updateScore("home", 3)}
           >
             Home Field Goal
           </button>
@@ -37,13 +48,13 @@ function App() {
         <div className="awayButtons">
           <button
             className="awayButtons__touchdown"
-            onClick={() => updateAwayScore(awayScore + 7)}
+            onClick={() => updateScore("away", 7)}
           >
             Away Touchdown
           </button>
           <button
             className="awayButtons__fieldGoal"
-            onClick={() => updateAwayScore(awayScore + 3)}
+            onClick={() => updateScore("away", 3)}
           >
             Away Field Goal
           </button>
